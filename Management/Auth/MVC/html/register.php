@@ -3,9 +3,7 @@
 <html>
 <head>
   <title>Register</title>
-<link rel="stylesheet" href="/web-tech-project/Management/Auth/MVC/css/style.css">
-
-
+  <link rel="stylesheet" href="/web-tech-project/Management/Auth/MVC/css/style.css">
 </head>
 <body>
 
@@ -13,8 +11,8 @@
   <div class="auth-box">
     <h2>Registration</h2>
 
-    <?php if(isset($_GET["msg"])): ?>
-      <div class="alert success"><?= htmlspecialchars($_GET["msg"]) ?></div>
+    <?php if(isset($_GET["err"])): ?>
+      <div class="alert error"><?= htmlspecialchars($_GET["err"]) ?></div>
     <?php endif; ?>
 
     <form method="post" action="../php/register_process.php">

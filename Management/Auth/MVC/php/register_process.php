@@ -36,19 +36,25 @@ try {
     $st2->close();
 
     $conn->commit();
-    header("Location: ../html/login.php?msg=registered");
+    header("Location: /web-tech-project/Management/Auth/MVC/html/login.php?msg=registered");
     exit;
   }
 
   if ($role === "doctor") {
     $approved = 0;
+
+    /* If your doctors table has phone column, use this INSERT:
+       INSERT INTO doctors(user_id,name,specialization,phone,approved,status)
+       Otherwise use the simpler one below.
+    */
+
     $st3 = $conn->prepare("INSERT INTO doctors(user_id,name,specialization,approved,status) VALUES(?,?,?,?, 'active')");
     $st3->bind_param("issi", $user_id, $name, $spec, $approved);
     $st3->execute();
     $st3->close();
 
     $conn->commit();
-    header("Location: ../html/login.php?msg=doctor_pending");
+    header("Location: /web-tech-project/Management/Auth/MVC/html/login.php?msg=doctor_pending");
     exit;
   }
 
