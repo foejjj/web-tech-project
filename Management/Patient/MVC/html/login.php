@@ -1,13 +1,26 @@
-<?php
-require_once("../db/db.php");
+<!doctype html>
+<html>
+<head>
+  <title>Patient Login</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
 
-$name=$_POST["name"];
-$email=$_POST["email"];
-$phone=$_POST["phone"];
-$pass=password_hash($_POST["password"],PASSWORD_DEFAULT);
+<div class="auth-container">
+  <div class="auth-box">
+    <h2>Patient Login</h2>
 
-$conn->query("INSERT INTO users(role,email,password_hash) VALUES('patient','$email','$pass')");
-$uid=$conn->insert_id;
+    <form method="post" action="../php/login_process.php">
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <button>Login</button>
+    </form>
 
-$conn->query("INSERT INTO patients(user_id,name,phone) VALUES($uid,'$name','$phone')");
-header("Location: ../html/login.php");
+    <p style="text-align:center;margin-top:10px">
+      New patient? <a href="register.php">Register</a>
+    </p>
+  </div>
+</div>
+
+</body>
+</html>
