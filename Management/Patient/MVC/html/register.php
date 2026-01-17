@@ -1,3 +1,11 @@
+<?php
+require_once("../../Auth/MVC/db/db.php");
+if (!isset($_SESSION["role"]) || $_SESSION["role"]!=="patient") {
+  header("Location: /Management/Auth/MVC/html/login.php");
+  exit;
+}
+?>
+
 <form method="post" action="../php/register_process.php">
   <h2>Patient Registration</h2>
   <input name="name" placeholder="Name" required>
@@ -7,3 +15,4 @@
   <button>Register</button>
 </form>
 <a href="login.php">Login</a>
+<a href="/Management/Auth/MVC/php/logout.php">Logout</a>

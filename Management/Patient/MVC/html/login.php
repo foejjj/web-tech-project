@@ -1,3 +1,11 @@
+<?php
+require_once("../../Auth/MVC/db/db.php");
+if (!isset($_SESSION["role"]) || $_SESSION["role"]!=="patient") {
+  header("Location: /Management/Auth/MVC/html/login.php");
+  exit;
+}
+?>
+
 <!doctype html>
 <html>
 <head>
@@ -24,3 +32,4 @@
 
 </body>
 </html>
+<a href="/Management/Auth/MVC/php/logout.php">Logout</a>
