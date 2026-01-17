@@ -3,7 +3,7 @@
 <html>
 <head>
   <title>Login</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="/web-tech-project/Management/Patient/MVC/css/style.css">
 </head>
 <body>
 
