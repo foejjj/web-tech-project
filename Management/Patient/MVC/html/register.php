@@ -16,4 +16,3 @@ if (!isset($_SESSION["role"]) || $_SESSION["role"] !== "patient") {
   <button>Register</button>
 </form>
 <a href="login.php">Login</a>
-<a href="/web-tech-project/Management/Auth/MVC/php/logout.php">Logout</a>

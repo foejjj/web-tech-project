@@ -25,4 +25,3 @@
 </div>
 
 <?php include "_layout_bottom.php"; ?>
-<a href="/web-tech-project/Management/Auth/MVC/php/logout.php">Logout</a>
