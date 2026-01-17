@@ -41,24 +41,19 @@ try {
   }
 
   if ($role === "doctor") {
-    $approved = 0;
+  $approved = 0;
 
-    /* If your doctors table has phone column, use this INSERT:
-       INSERT INTO doctors(user_id,name,specialization,phone,approved,status)
-       Otherwise use the simpler one below.
-    */
+  $st3 = $conn->prepare("INSERT INTO doctors(user_id,name,specialization,phone,approved,status) VALUES(?,?,?,?,?,'active')");
+  $st3->bind_param("isssi", $user_id, $name, $spec, $phone, $approved);
+  $st3->execute();
+  $st3->close();
 
-    $st3 = $conn->prepare("INSERT INTO doctors(user_id,name,specialization,approved,status) VALUES(?,?,?,?, 'active')");
-    $st3->bind_param("issi", $user_id, $name, $spec, $approved);
-    $st3->execute();
-    $st3->close();
-
-    $conn->commit();
-    header("Location: /web-tech-project/Management/Auth/MVC/html/login.php?msg=doctor_pending");
-    exit;
-  }
+  $conn->commit();
+  header("Location: /web-tech-project/Management/Auth/MVC/html/login.php?msg=doctor_pending");
+  exit;
+}
 
 } catch (Throwable $e) {
   $conn->rollback();
-  die("Registration failed");
+ die($e->getMessage());
 }
