@@ -1,10 +1,11 @@
 <?php
-require_once("../../Auth/MVC/db/db.php");
-if (!isset($_SESSION["role"]) || $_SESSION["role"]!=="patient") {
-  header("Location: /Management/Auth/MVC/html/login.php");
+require_once("../../../Auth/MVC/db/db.php");
+if (!isset($_SESSION["role"]) || $_SESSION["role"] !== "patient") {
+  header("Location: /web-tech-project/Management/Auth/MVC/html/login.php");
   exit;
 }
 ?>
+
 
 <h3>My Prescriptions</h3>
 <?php

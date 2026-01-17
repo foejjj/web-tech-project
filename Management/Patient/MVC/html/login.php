@@ -1,7 +1,7 @@
 <?php
-require_once("../../Auth/MVC/db/db.php");
-if (!isset($_SESSION["role"]) || $_SESSION["role"]!=="patient") {
-  header("Location: /Management/Auth/MVC/html/login.php");
+require_once("../../../Auth/MVC/db/db.php");
+if (!isset($_SESSION["role"]) || $_SESSION["role"] !== "patient") {
+  header("Location: /web-tech-project/Management/Auth/MVC/html/login.php");
   exit;
 }
 ?>
@@ -10,7 +10,7 @@ if (!isset($_SESSION["role"]) || $_SESSION["role"]!=="patient") {
 <html>
 <head>
   <title>Patient Login</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="/web-tech-project/Management/Patient/MVC/css/style.css">
 </head>
 <body>
 

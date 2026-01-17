@@ -1,10 +1,4 @@
-<?php
-require_once("../../Auth/MVC/db/db.php");
-if (!isset($_SESSION["role"]) || $_SESSION["role"]!=="patient") {
-  header("Location: /Management/Auth/MVC/html/login.php");
-  exit;
-}
-?>
+
 
 <?php include "_layout_top.php"; ?>
 
