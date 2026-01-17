@@ -1,4 +1,4 @@
-  </div> <!-- content -->
-</div> <!-- layout -->
+  </div>
+</div>
 </body>
 </html>

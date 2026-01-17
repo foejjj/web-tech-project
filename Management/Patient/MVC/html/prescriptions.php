@@ -1,11 +1,4 @@
-<?php
-require_once("../../../Auth/MVC/db/db.php");
-if (!isset($_SESSION["role"]) || $_SESSION["role"] !== "patient") {
-  header("Location: /web-tech-project/Management/Auth/MVC/html/login.php");
-  exit;
-}
-?>
-
+<?php include "_layout_top.php"; ?>
 
 <h3>My Prescriptions</h3>
 <?php
@@ -18,3 +11,4 @@ while($r=$res->fetch_assoc()):
 ?>
 <p><?= $r["created_at"] ?> | <?= $r["doctor"] ?><br><?= $r["medicines"] ?></p>
 <?php endwhile; ?>
+<?php include "_layout_bottom.php"; ?>

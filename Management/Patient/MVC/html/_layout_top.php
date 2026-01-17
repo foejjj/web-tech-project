@@ -1,11 +1,9 @@
 <?php
 require_once("../../../Auth/MVC/db/db.php");
-
 if (!isset($_SESSION["role"]) || $_SESSION["role"] !== "patient") {
   header("Location: /web-tech-project/Management/Auth/MVC/html/login.php");
   exit;
 }
-
 $displayName = $_SESSION["name"] ?? "Patient";
 ?>
 <!doctype html>
@@ -23,11 +21,10 @@ $displayName = $_SESSION["name"] ?? "Patient";
 
 <div class="layout">
   <div class="sidebar">
-    <a href="dashboard.php">Dashboard</a>
-    <a href="book_appointment.php">Book Appointment</a>
-    <a href="appointments.php">Appointments</a>
-    <a href="prescriptions.php">Prescriptions</a>
+    <a href="/web-tech-project/Management/Patient/MVC/html/dashboard.php">Dashboard</a>
+    <a href="/web-tech-project/Management/Patient/MVC/html/book_appointment.php">Book Appointment</a>
+    <a href="/web-tech-project/Management/Patient/MVC/html/appointments.php">Appointments</a>
+    <a href="/web-tech-project/Management/Patient/MVC/html/prescriptions.php">Prescriptions</a>
     <a href="/web-tech-project/Management/Auth/MVC/php/logout.php">Logout</a>
   </div>
-
   <div class="content">

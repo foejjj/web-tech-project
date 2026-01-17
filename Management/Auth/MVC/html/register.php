@@ -3,7 +3,8 @@
 <html>
 <head>
   <title>Register</title>
-  <link rel="stylesheet" href="/web-tech-project/Management/Patient/MVC/css/style.css">
+<link rel="stylesheet" href="/web-tech-project/Management/Auth/MVC/css/style.css">
+
 
 </head>
 <body>
