@@ -14,8 +14,9 @@ if ($email === ADMIN_EMAIL && $pass === ADMIN_PASSWORD) {
   $_SESSION["user_id"] = 0;
   $_SESSION["role"] = "admin";
   $_SESSION["name"] = "Admin";
-  header("Location: /Management/Admin/MVC/html/dashboard.php");
-  exit;
+  header("Location: /web-tech-project/Management/Admin/MVC/html/dashboard.php");
+exit;
+
 }
 
 $st = $conn->prepare("SELECT id, role, password_hash, status FROM users WHERE email=? LIMIT 1");
@@ -41,8 +42,8 @@ if ($u["role"] === "patient") {
   if (!$p) { header("Location: ../html/login.php?err=Patient+profile+missing"); exit; }
   $_SESSION["patient_id"] = (int)$p["id"];
   $_SESSION["name"] = $p["name"];
-  header("Location: /Management/Patient/MVC/html/dashboard.php");
-  exit;
+  header("Location: /web-tech-project/Management/Patient/MVC/html/dashboard.php");
+exit;
 }
 
 if ($u["role"] === "doctor") {
@@ -52,8 +53,9 @@ if ($u["role"] === "doctor") {
   if ($d["status"] !== "active") { header("Location: ../html/login.php?err=Doctor+inactive"); exit; }
   $_SESSION["doctor_id"] = (int)$d["id"];
   $_SESSION["name"] = $d["name"];
-  header("Location: /Management/Doctor/MVC/html/dashboard.php");
-  exit;
+  header("Location: /web-tech-project/Management/Doctor/MVC/html/dashboard.php");
+exit;
+
 }
 
 header("Location: ../html/login.php?err=Unknown+role");

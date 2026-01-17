@@ -30,4 +30,4 @@ if (!isset($_SESSION["role"]) || $_SESSION["role"]!=="patient") {
 </div>
 
 <?php include "_layout_bottom.php"; ?>
-<a href="/Management/Auth/MVC/php/logout.php">Logout</a>
+<a href="/web-tech-project/Management/Auth/MVC/php/logout.php">Logout</a>

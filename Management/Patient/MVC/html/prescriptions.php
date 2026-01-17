@@ -17,4 +17,4 @@ while($r=$res->fetch_assoc()):
 ?>
 <p><?= $r["created_at"] ?> | <?= $r["doctor"] ?><br><?= $r["medicines"] ?></p>
 <?php endwhile; ?>
-<a href="/Management/Auth/MVC/php/logout.php">Logout</a>
+<a href="/web-tech-project/Management/Auth/MVC/php/logout.php">Logout</a>

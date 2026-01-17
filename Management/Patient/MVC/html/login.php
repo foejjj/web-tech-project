@@ -32,4 +32,4 @@ if (!isset($_SESSION["role"]) || $_SESSION["role"]!=="patient") {
 
 </body>
 </html>
-<a href="/Management/Auth/MVC/php/logout.php">Logout</a>
+<a href="/web-tech-project/Management/Auth/MVC/php/logout.php">Logout</a>
