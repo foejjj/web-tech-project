@@ -8,8 +8,8 @@ if (!isset($_SESSION["role"]) || $_SESSION["role"] !== "admin") {
 
 $id = (int)($_GET["id"] ?? 0);
 if ($id > 0) {
-  $conn->query("UPDATE appointments SET status='approved' WHERE id=$id");
+  $conn->query("UPDATE appointments SET approved=1 WHERE id=$id AND status='scheduled'");
 }
 
-header("Location: /web-tech-project/Management/Admin/MVC/html/appointments.php");
+header("Location: ../html/appointments.php?msg=Approved");
 exit;

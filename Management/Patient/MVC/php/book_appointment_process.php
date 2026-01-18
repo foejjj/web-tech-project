@@ -8,22 +8,28 @@ if (!isset($_SESSION["role"]) || $_SESSION["role"] !== "patient") {
 
 $patient_id = (int)($_SESSION["patient_id"] ?? 0);
 $doctor_id  = (int)($_POST["doctor_id"] ?? 0);
-$date       = $_POST["date"] ?? "";
-$time       = $_POST["time"] ?? "";
+$date       = trim($_POST["date"] ?? "");
+$time       = trim($_POST["time"] ?? "");
 
-if ($patient_id<=0 || $doctor_id<=0 || !$date || !$time) {
+if ($patient_id<=0 || $doctor_id<=0 || $date==="" || $time==="") {
   header("Location: ../html/book_appointment.php?err=Fill+all+fields");
   exit;
 }
 
-/* insert appointment */
-$st = $conn->prepare(
-  "INSERT INTO appointments (patient_id, doctor_id, date, time, status)
-   VALUES (?, ?, ?, ?, 'scheduled')"
-);
-$st->bind_param("iiss", $patient_id, $doctor_id, $date, $time);
-$st->execute();
-$st->close();
+/* IMPORTANT: must match ENUM in DB */
+$status = "scheduled";
 
-header("Location: ../html/appointments.php?msg=Appointment+Booked");
+$st = $conn->prepare("INSERT INTO appointments(patient_id, doctor_id, date, time, status) VALUES(?,?,?,?,?)");
+$st->bind_param("iisss", $patient_id, $doctor_id, $date, $time, $status);
+$ok = $st->execute();
+
+if (!$ok) {
+  $msg = urlencode("DB Error: ".$st->error);
+  $st->close();
+  header("Location: ../html/book_appointment.php?err=$msg");
+  exit;
+}
+
+$st->close();
+header("Location: ../html/appointments.php?msg=Booked");
 exit;
