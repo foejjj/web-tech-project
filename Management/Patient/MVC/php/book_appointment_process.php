@@ -8,24 +8,22 @@ if (!isset($_SESSION["role"]) || $_SESSION["role"] !== "patient") {
 
 $patient_id = (int)($_SESSION["patient_id"] ?? 0);
 $doctor_id  = (int)($_POST["doctor_id"] ?? 0);
-$date       = trim($_POST["date"] ?? "");
-$time       = trim($_POST["time"] ?? "");
+$date       = $_POST["date"] ?? "";
+$time       = $_POST["time"] ?? "";
 
-if ($patient_id<=0 || $doctor_id<=0 || $date==="" || $time==="") {
-  header("Location: /web-tech-project/Management/Patient/MVC/html/book_appointment.php?err=Fill+all+fields");
+if ($patient_id<=0 || $doctor_id<=0 || !$date || !$time) {
+  header("Location: ../html/book_appointment.php?err=Fill+all+fields");
   exit;
 }
 
-$status = "pending";
-$st = $conn->prepare("INSERT INTO appointments(patient_id, doctor_id, date, time, status) VALUES(?,?,?,?,?)");
-$st->bind_param("iisss", $patient_id, $doctor_id, $date, $time, $status);
-$ok = $st->execute();
+/* insert appointment */
+$st = $conn->prepare(
+  "INSERT INTO appointments (patient_id, doctor_id, date, time, status)
+   VALUES (?, ?, ?, ?, 'scheduled')"
+);
+$st->bind_param("iiss", $patient_id, $doctor_id, $date, $time);
+$st->execute();
 $st->close();
 
-if (!$ok) {
-  header("Location: /web-tech-project/Management/Patient/MVC/html/book_appointment.php?err=DB+Insert+Failed");
-  exit;
-}
-
-header("Location: /web-tech-project/Management/Patient/MVC/html/appointments.php?msg=Booked");
+header("Location: ../html/appointments.php?msg=Appointment+Booked");
 exit;
