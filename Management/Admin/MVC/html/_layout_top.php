@@ -28,7 +28,6 @@ $displayName = $_SESSION["name"] ?? "Admin";
     <a href="/web-tech-project/Management/Admin/MVC/html/patients.php">Patients</a>
     <a href="/web-tech-project/Management/Admin/MVC/html/appointments.php">Appointments</a>
     <a href="/web-tech-project/Management/Admin/MVC/html/prescriptions.php">Prescriptions</a>
-    <a href="/web-tech-project/Management/Auth/MVC/html/change_password.php">Change Password</a>
     <a href="/web-tech-project/Management/Auth/MVC/php/logout.php">Logout</a>
   </div>
   <div class="content">
