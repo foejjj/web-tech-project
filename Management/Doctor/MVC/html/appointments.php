@@ -1,25 +1,44 @@
 <?php include "_layout_top.php"; ?>
 
-<h2 class="page-title">Dashboard</h2>
+<h2 class="page-title">My Appointments</h2>
 
-<div class="card-grid">
-  <div class="card">
-    <h3>Appointments</h3>
-    <p>View assigned patient appointments.</p>
-    <a class="btn" href="appointments.php">Open</a>
-  </div>
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Patient</th>
+    <th>Status</th>
+    <th>Action</th>
+  </tr>
 
-  <div class="card">
-    <h3>Write Prescription</h3>
-    <p>Create a prescription for a patient.</p>
-    <a class="btn gray" href="appointments.php">Select Appointment</a>
-  </div>
+  <?php
+  $doctor_id = (int)($_SESSION["doctor_id"] ?? 0);
 
-  <div class="card">
-    <h3>Request Lab Test</h3>
-    <p>Request or upload a lab test entry.</p>
-    <a class="btn gray" href="request_lab_test.php">Request</a>
-  </div>
-</div>
+  $sql = "
+    SELECT a.id, a.date, a.time, a.status, p.name AS patient_name
+    FROM appointments a
+    JOIN patients p ON p.id = a.patient_id
+    WHERE a.doctor_id = $doctor_id
+    ORDER BY a.date DESC, a.time DESC
+  ";
+  $res = $conn->query($sql);
+
+  if ($res) {
+    while ($r = $res->fetch_assoc()):
+  ?>
+  <tr>
+    <td><?= htmlspecialchars($r["date"]) ?></td>
+    <td><?= htmlspecialchars($r["time"]) ?></td>
+    <td><?= htmlspecialchars($r["patient_name"]) ?></td>
+    <td><?= htmlspecialchars($r["status"]) ?></td>
+    <td>
+      <a class="btn gray" href="write_prescription.php?appointment_id=<?= (int)$r["id"] ?>">Write</a>
+    </td>
+  </tr>
+  <?php
+    endwhile;
+  }
+  ?>
+</table>
 
 <?php include "_layout_bottom.php"; ?>
