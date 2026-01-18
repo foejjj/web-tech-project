@@ -4,7 +4,7 @@
 <h2 class="page-title">Book Appointment</h2>
 
 <div class="panel">
-  <form method="post" action="../php/book_appointment.php">
+  <form method="post" action="../php/book_appointment_process.php">
     <select name="doctor" required>
       <option value="">Select Doctor</option>
       <?php

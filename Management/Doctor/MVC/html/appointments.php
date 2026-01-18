@@ -1,6 +1,6 @@
 <?php include "_layout_top.php"; ?>
 
-<h2 class="page-title">My Appointments</h2>
+<h2 class="page-title">Approved Appointments</h2>
 
 <table>
   <tr>
@@ -11,21 +11,22 @@
     <th>Action</th>
   </tr>
 
-  <?php
-  $doctor_id = (int)($_SESSION["doctor_id"] ?? 0);
+<?php
+$doctor_id = (int)($_SESSION["doctor_id"] ?? 0);
 
-  $sql = "
-    SELECT a.id, a.date, a.time, a.status, p.name AS patient_name
-    FROM appointments a
-    JOIN patients p ON p.id = a.patient_id
-    WHERE a.doctor_id = $doctor_id
-    ORDER BY a.date DESC, a.time DESC
-  ";
-  $res = $conn->query($sql);
+$sql = "
+  SELECT a.id,a.date,a.time,a.status, p.name AS patient_name
+  FROM appointments a
+  JOIN patients p ON p.id=a.patient_id
+  WHERE a.doctor_id = $doctor_id
+    AND a.status = 'approved'
+  ORDER BY a.date DESC, a.time DESC
+";
+$res = $conn->query($sql);
 
-  if ($res) {
-    while ($r = $res->fetch_assoc()):
-  ?>
+if ($res) {
+  while($r = $res->fetch_assoc()):
+?>
   <tr>
     <td><?= htmlspecialchars($r["date"]) ?></td>
     <td><?= htmlspecialchars($r["time"]) ?></td>
@@ -35,10 +36,10 @@
       <a class="btn gray" href="write_prescription.php?appointment_id=<?= (int)$r["id"] ?>">Write</a>
     </td>
   </tr>
-  <?php
-    endwhile;
-  }
-  ?>
+<?php
+  endwhile;
+}
+?>
 </table>
 
 <?php include "_layout_bottom.php"; ?>
