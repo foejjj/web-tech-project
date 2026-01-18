@@ -1,6 +1,5 @@
 <?php
-session_start();
-require_once("../../Auth/MVC/db/db.php");
+require_once("../../../Auth/MVC/db/db.php");
 
 if ($_SESSION['role'] !== 'admin') {
     header("Location: ../../Auth/MVC/html/login.php");
