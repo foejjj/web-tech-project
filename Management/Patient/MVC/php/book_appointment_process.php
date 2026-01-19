@@ -21,3 +21,14 @@ $status = "scheduled";
 $st = $conn->prepare("INSERT INTO appointments(patient_id, doctor_id, date, time, status) VALUES(?,?,?,?,?)");
 $st->bind_param("iisss", $patient_id, $doctor_id, $date, $time, $status);
 $ok = $st->execute();
+
+if (!$ok) {
+  $msg = urlencode("DB Error: ".$st->error);
+  $st->close();
+  header("Location: ../html/book_appointment.php?err=$msg");
+  exit;
+}
+
+$st->close();
+header("Location: ../html/appointments.php?msg=Booked");
+exit;
