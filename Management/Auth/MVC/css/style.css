@@ -1,0 +1,10 @@
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+body{background:#f4f6fb;color:#111827}
+
+.auth-container{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.auth-box{width:420px;background:#fff;border-radius:14px;padding:24px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+.auth-box h2{margin-bottom:14px}
+.auth-box label{display:block;margin:10px 0 6px;font-size:14px;color:#374151}
+.auth-box input,.auth-box select{
+  width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px
+}
