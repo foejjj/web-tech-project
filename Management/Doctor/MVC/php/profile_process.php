@@ -80,3 +80,6 @@ if ($action === "password") {
   header("Location: ../html/profile.php?msg=Password+updated");
   exit;
 }
+
+header("Location: ../html/profile.php?err=Invalid+action");
+exit;
