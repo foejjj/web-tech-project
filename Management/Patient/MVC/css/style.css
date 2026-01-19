@@ -54,3 +54,18 @@ body{background:#f4f6fb;color:#111827}
   font-size:14px;
 }
 .btn.gray{background:#6b7280}
+
+.panel{
+  max-width:650px;
+  background:#fff;
+  padding:18px;
+  border-radius:12px;
+  box-shadow:0 10px 25px rgba(0,0,0,.06);
+}
+.panel input,.panel select{
+  width:100%;
+  padding:10px;
+  border:1px solid #e5e7eb;
+  border-radius:10px;
+  margin:8px 0 14px;
+}
