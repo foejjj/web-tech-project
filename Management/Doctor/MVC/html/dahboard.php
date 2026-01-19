@@ -14,3 +14,7 @@
    <p>Create a prescription for a patient.</p>
    <a class="btn gray" href="prescriptions.php">Write Prescription</a>
  </div>
+
+ </div>
+
+<?php include "_layout_bottom.php"; ?>
