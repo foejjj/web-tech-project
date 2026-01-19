@@ -69,3 +69,5 @@
     <?php endwhile; ?>
   </table>
 </div>
+
+<?php include "_layout_bottom.php"; ?>
