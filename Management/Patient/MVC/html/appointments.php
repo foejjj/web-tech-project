@@ -15,7 +15,7 @@
 </tr>
 
 <?php
-$pid = (int)$_SESSION["p_id"];
+$pid = (int)$_SESSION["patient_id"];
 $q = "
   SELECT a.date, a.time, a.status, d.name
   FROM appointments a
