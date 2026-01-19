@@ -20,3 +20,19 @@
       <button class="btn" type="submit">Update Name</button>
     </form>
   </div>
+
+  <div class="card" style="max-width:520px;">
+    <h3>Change Password</h3>
+
+    <form method="post" action="../php/profile_process.php">
+      <input type="hidden" name="action" value="password">
+
+      <input type="password" name="old_password" placeholder="Old Password" required>
+      <input type="password" name="new_password" placeholder="New Password" required>
+      <input type="password" name="confirm_password" placeholder="Confirm New Password" required>
+
+      <button class="btn gray" type="submit">Change Password</button>
+    </form>
+  </div>
+</div>
+<?php include "_layout_bottom.php"; ?>
