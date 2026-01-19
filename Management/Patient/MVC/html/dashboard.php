@@ -9,3 +9,17 @@
     <a class="btn" href="book_appointment.php">Book</a>
   </div>
   
+  <div class="card">
+    <h3>Appointments</h3>
+    <p>View appointment history.</p>
+    <a class="btn gray" href="appointments.php">View</a>
+  </div>
+
+  <div class="card">
+    <h3>Prescriptions</h3>
+    <p>See doctor prescriptions.</p>
+    <a class="btn gray" href="prescriptions.php">Open</a>
+  </div>
+</div>
+
+<?php include "_layout_bottom.php"; ?>  
