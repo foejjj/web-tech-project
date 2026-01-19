@@ -72,3 +72,22 @@ try {
     header("Location: /web-tech-project/Management/Auth/MVC/html/login.php?msg=registered");
     exit;
   }
+   if ($role === "doctor") {
+    $approved = 0;
+    $st3 = $conn->prepare("INSERT INTO doctors(user_id,name,specialization,phone,dob,gender,approved,status) VALUES(?,?,?,?,?,?,?,'active')");
+    $st3->bind_param("isssssi", $user_id, $name, $spec, $phone, $dob, $gender, $approved);
+    $st3->execute();
+    $st3->close();
+
+    $conn->commit();
+    header("Location: /web-tech-project/Management/Auth/MVC/html/login.php?msg=doctor_pending");
+    exit;
+  }
+
+  $conn->rollback();
+  goErr("Unknown role");
+
+} catch (Throwable $e) {
+  $conn->rollback();
+  goErr("Server error. Try again.");
+}
