@@ -32,3 +32,9 @@
         <option value="<?= (int)$r["id"] ?>"><?= htmlspecialchars($r["name"]) ?></option>
       <?php endwhile; ?>
     </select>
+        <label>Medicines / Advice</label>
+    <textarea name="medicines" rows="5" placeholder="Write prescription..." required></textarea>
+
+    <button type="submit">Save Prescription</button>
+  </form>
+</div>
