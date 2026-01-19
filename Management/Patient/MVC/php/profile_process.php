@@ -50,8 +50,8 @@ if ($action === "password") {
     header("Location: ../html/profile.php?err=New+password+not+matched");
     exit;
   }
-  if (strlen($new) < 4) {
-    header("Location: ../html/profile.php?err=Password+too+short");
+  if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/', $new)) {
+    header("Location: ../html/profile.php?err=Password+must+be+8%2B+chars+with+uppercase%2C+lowercase%2C+number+%26+special+character");
     exit;
   }
 
