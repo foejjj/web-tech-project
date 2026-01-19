@@ -8,3 +8,9 @@
     <p>View assigned patient appointments.</p>
     <a class="btn" href="appointments.php">Open</a>
   </div>
+
+ <div class="card">
+   <h3>Write Prescription</h3>
+   <p>Create a prescription for a patient.</p>
+   <a class="btn gray" href="prescriptions.php">Write Prescription</a>
+ </div>
