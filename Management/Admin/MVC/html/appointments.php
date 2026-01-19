@@ -18,3 +18,18 @@ ORDER BY a.date DESC, a.time DESC
 
 $res = $conn->query($q);
 ?>
+
+<?php include("_layout_top.php"); ?>
+
+<h2>Appointments</h2>
+
+<table class="table">
+  <tr>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Patient</th>
+    <th>Doctor</th>
+    <th>Status</th>
+    <th>Approved</th>
+    <th>Action</th>
+  </tr>
