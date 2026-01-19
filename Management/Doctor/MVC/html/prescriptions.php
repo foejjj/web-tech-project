@@ -38,3 +38,34 @@
     <button type="submit">Save Prescription</button>
   </form>
 </div>
+
+<div class="card" style="margin-top:16px;">
+  <h3>My Written Prescriptions</h3>
+
+  <table>
+    <tr>
+      <th>Date</th>
+      <th>Patient</th>
+      <th>Prescription</th>
+    </tr>
+
+    <?php
+    $did = (int)($_SESSION["doctor_id"] ?? 0);
+    $q2 = "
+      SELECT pr.created_at, pr.medicines, p.name AS patient
+      FROM prescriptions pr
+      JOIN patients p ON p.id = pr.patient_id
+      WHERE pr.doctor_id = $did
+      ORDER BY pr.created_at DESC
+    ";
+    $res2 = $conn->query($q2);
+    while($r = $res2->fetch_assoc()):
+    ?>
+      <tr>
+        <td><?= htmlspecialchars($r["created_at"]) ?></td>
+        <td><?= htmlspecialchars($r["patient"]) ?></td>
+        <td><?= nl2br(htmlspecialchars($r["medicines"])) ?></td>
+      </tr>
+    <?php endwhile; ?>
+  </table>
+</div>
