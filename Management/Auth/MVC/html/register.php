@@ -54,3 +54,18 @@
 
       <button type="submit" id="submitBtn">Register</button>
     </form>
+    
+    <p class="center">
+      Already have account? <a href="login.php">Login</a>
+    </p>
+  </div>
+</div>
+
+<script src="../js/register_validation.js"></script>
+
+</body>
+</html>
+
+
+
+
