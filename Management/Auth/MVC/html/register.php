@@ -15,7 +15,10 @@
       <div class="alert error"><?= htmlspecialchars($_GET["err"]) ?></div>
     <?php endif; ?>
 
-    <form method="post" action="../php/register_process.php">
+    <!-- JS Live message -->
+    <div id="liveMsg" class="alert" style="display:none;"></div>
+
+    <form id="regForm" method="post" action="../php/register_process.php" novalidate>
       <label>Register As</label>
       <select name="role" id="role" required>
         <option value="">-- Select --</option>
@@ -23,16 +26,37 @@
         <option value="doctor">Doctor</option>
       </select>
 
-      <input name="name" placeholder="Full Name" required>
-      <input name="email" type="email" placeholder="Email" required>
-      <input name="phone" placeholder="Phone" required>
-      <input name="password" type="password" placeholder="Password" required>
+      <input name="name" id="name" placeholder="Full Name" required>
+      <input name="email" id="email" type="email" placeholder="Email" required>
+      <input name="phone" id="phone" placeholder="Phone (01XXXXXXXXX)" required>
+
+      <!-- DOB -->
+      <label style="margin-top:8px;">Date of Birth</label>
+      <input name="dob" id="dob" type="date" required>
+
+      <!-- Gender -->
+      <label style="margin-top:8px;">Gender</label>
+      <select name="gender" id="gender" required>
+        <option value="">-- Select --</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+
+      <input name="password" id="password" type="password" placeholder="Password" required>
+
+      <!-- ✅ FIX: add name="confirm_password" -->
+      <input name="confirm_password" id="confirm_password" type="password" placeholder="Confirm Password" required>
+
+      <small style="font-size:12px;color:#6b7280;display:block;margin:6px 0 10px;">
+        Password must be 8+ characters and include uppercase, lowercase, number & special character.
+      </small>
 
       <div id="doctorBox" style="display:none;">
-        <input name="specialization" placeholder="Specialization (Doctor)">
+        <input name="specialization" id="specialization" placeholder="Specialization (Doctor)">
       </div>
 
-      <button type="submit">Register</button>
+      <button type="submit" id="submitBtn">Register</button>
     </form>
 
     <p class="center">
@@ -41,13 +65,7 @@
   </div>
 </div>
 
-<script>
-  const role = document.getElementById("role");
-  const box = document.getElementById("doctorBox");
-  role.addEventListener("change", () => {
-    box.style.display = (role.value === "doctor") ? "block" : "none";
-  });
-</script>
+<script src="../js/register_validation.js"></script>
 
 </body>
 </html>

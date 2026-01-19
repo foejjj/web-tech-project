@@ -1,28 +1,68 @@
 <?php
 require_once("../db/db.php");
 
-$role = $_POST["role"] ?? "";
-$name = trim($_POST["name"] ?? "");
-$email = trim($_POST["email"] ?? "");
-$phone = trim($_POST["phone"] ?? "");
-$pass = $_POST["password"] ?? "";
-$spec = trim($_POST["specialization"] ?? "");
+function goErr($msg) {
+  $m = urlencode($msg);
+  header("Location: /web-tech-project/Management/Auth/MVC/html/register.php?err=$m");
+  exit;
+}
 
-if ($role !== "patient" && $role !== "doctor") die("Invalid role");
-if ($name==="" || $email==="" || $phone==="" || $pass==="") die("All fields required");
-if ($role==="doctor" && $spec==="") die("Doctor specialization required");
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+  goErr("Invalid request");
+}
 
+$role   = $_POST["role"] ?? "";
+$name   = trim($_POST["name"] ?? "");
+$email  = trim($_POST["email"] ?? "");
+$phone  = trim($_POST["phone"] ?? "");
+$dob    = trim($_POST["dob"] ?? "");
+$gender = trim($_POST["gender"] ?? "");
+$pass   = $_POST["password"] ?? "";
+$cpass  = $_POST["confirm_password"] ?? "";
+$spec   = trim($_POST["specialization"] ?? "");
+
+// Role
+if ($role !== "patient" && $role !== "doctor") goErr("Please select role.");
+
+// Required fields
+if ($name==="" || $email==="" || $phone==="" || $dob==="" || $gender==="" || $pass==="" || $cpass==="") {
+  goErr("All fields required.");
+}
+
+// Name: letters + spaces, min 3
+if (!preg_match('/^[A-Za-z\s]{3,}$/', $name)) goErr("Name must be 3+ letters (A-Z) and spaces only.");
+
+// Email format
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) goErr("Invalid email format.");
+
+// Phone (BD basic)
+if (!preg_match('/^01\d{9}$/', $phone)) goErr("Phone must be 11 digits and start with 01.");
+
+// Gender allowed
+if (!in_array($gender, ["male","female","other"], true)) goErr("Invalid gender.");
+
+// Password: 8+ lower+upper+digit+special
+if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/', $pass)) {
+  goErr("Password must be 8+ chars with uppercase, lowercase, number & special character.");
+}
+if ($pass !== $cpass) goErr("Passwords do not match.");
+
+// Doctor specialization required
+if ($role==="doctor" && $spec==="") goErr("Doctor specialization is required.");
+
+// Check email exists
 $check = $conn->prepare("SELECT id FROM users WHERE email=? LIMIT 1");
 $check->bind_param("s", $email);
 $check->execute();
 $exists = $check->get_result()->fetch_assoc();
 $check->close();
-if ($exists) die("Email already exists");
+if ($exists) goErr("Email already exists.");
 
 $hash = password_hash($pass, PASSWORD_BCRYPT);
 
 $conn->begin_transaction();
 try {
+  // Insert into users (NO dob/gender here)
   $st = $conn->prepare("INSERT INTO users(role,email,password_hash,status) VALUES(?,?,?,'active')");
   $st->bind_param("sss", $role, $email, $hash);
   $st->execute();
@@ -30,8 +70,8 @@ try {
   $st->close();
 
   if ($role === "patient") {
-    $st2 = $conn->prepare("INSERT INTO patients(user_id,name,phone) VALUES(?,?,?)");
-    $st2->bind_param("iss", $user_id, $name, $phone);
+    $st2 = $conn->prepare("INSERT INTO patients(user_id,name,phone,dob,gender) VALUES(?,?,?,?,?)");
+    $st2->bind_param("issss", $user_id, $name, $phone, $dob, $gender);
     $st2->execute();
     $st2->close();
 
@@ -41,19 +81,21 @@ try {
   }
 
   if ($role === "doctor") {
-  $approved = 0;
+    $approved = 0;
+    $st3 = $conn->prepare("INSERT INTO doctors(user_id,name,specialization,phone,dob,gender,approved,status) VALUES(?,?,?,?,?,?,?,'active')");
+    $st3->bind_param("isssssi", $user_id, $name, $spec, $phone, $dob, $gender, $approved);
+    $st3->execute();
+    $st3->close();
 
-  $st3 = $conn->prepare("INSERT INTO doctors(user_id,name,specialization,phone,approved,status) VALUES(?,?,?,?,?,'active')");
-  $st3->bind_param("isssi", $user_id, $name, $spec, $phone, $approved);
-  $st3->execute();
-  $st3->close();
+    $conn->commit();
+    header("Location: /web-tech-project/Management/Auth/MVC/html/login.php?msg=doctor_pending");
+    exit;
+  }
 
-  $conn->commit();
-  header("Location: /web-tech-project/Management/Auth/MVC/html/login.php?msg=doctor_pending");
-  exit;
-}
+  $conn->rollback();
+  goErr("Unknown role");
 
 } catch (Throwable $e) {
   $conn->rollback();
- die($e->getMessage());
+  goErr("Server error. Try again.");
 }

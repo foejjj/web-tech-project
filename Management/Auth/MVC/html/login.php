@@ -37,9 +37,6 @@
       New user? <a href="register.php">Register (Patient/Doctor)</a>
     </p>
 
-    <p class="center">
-      <a href="forgot_password.php">Forgot Password?</a>
-    </p>
 
     <p class="center" style="font-size:13px;color:#6b7280;margin-top:8px;">
       Admin has no registration. Use fixed admin email/password.
