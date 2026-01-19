@@ -42,3 +42,33 @@ if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/', $pa
 if ($pass !== $cpass) goErr("Passwords do not match.");
 
 if ($role==="doctor" && $spec==="") goErr("Doctor specialization is required.");
+
+
+$check = $conn->prepare("SELECT id FROM users WHERE email=? LIMIT 1");
+$check->bind_param("s", $email);
+$check->execute();
+$exists = $check->get_result()->fetch_assoc();
+$check->close();
+if ($exists) goErr("Email already exists.");
+
+$hash = password_hash($pass, PASSWORD_BCRYPT);
+
+$conn->begin_transaction();
+try {
+
+  $st = $conn->prepare("INSERT INTO users(role,email,password_hash,status) VALUES(?,?,?,'active')");
+  $st->bind_param("sss", $role, $email, $hash);
+  $st->execute();
+  $user_id = $conn->insert_id;
+  $st->close();
+
+  if ($role === "patient") {
+    $st2 = $conn->prepare("INSERT INTO patients(user_id,name,phone,dob,gender) VALUES(?,?,?,?,?)");
+    $st2->bind_param("issss", $user_id, $name, $phone, $dob, $gender);
+    $st2->execute();
+    $st2->close();
+
+    $conn->commit();
+    header("Location: /web-tech-project/Management/Auth/MVC/html/login.php?msg=registered");
+    exit;
+  }
