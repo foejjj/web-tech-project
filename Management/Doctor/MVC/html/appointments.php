@@ -31,3 +31,5 @@ while($r = $res->fetch_assoc()):
 </tr>
 <?php endwhile; ?>
 </table>
+
+<?php include "_layout_bottom.php"; ?>
