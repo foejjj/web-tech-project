@@ -26,8 +26,8 @@ $res = $conn->query($sql);
   <table class="table">
     <thead>
       <tr>
-        <th style="width:180px;">Date</th>
-        <th style="width:150px;">Doctor</th>
+        <th style="width:220px;">Date</th>
+        <th style="width:200px;">Doctor</th>
         <th>Prescription</th>
       </tr>
     </thead>
