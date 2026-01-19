@@ -24,3 +24,22 @@
         <option value="patient">Patient</option>
         <option value="doctor">Doctor</option>
       </select>
+           <input name="name" id="name" placeholder="Full Name" required>
+      <input name="email" id="email" type="email" placeholder="Email" required>
+      <input name="phone" id="phone" placeholder="Phone (01XXXXXXXXX)" required>
+
+      <label style="margin-top:8px;">Date of Birth</label>
+      <input name="dob" id="dob" type="date" required>
+
+      <label style="margin-top:8px;">Gender</label>
+      <select name="gender" id="gender" required>
+        <option value="">-- Select --</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+
+      <input name="password" id="password" type="password" placeholder="Password" required>
+
+     
+      <input name="confirm_password" id="confirm_password" type="password" placeholder="Confirm Password" required>
