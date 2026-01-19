@@ -43,3 +43,14 @@
 
      
       <input name="confirm_password" id="confirm_password" type="password" placeholder="Confirm Password" required>
+
+      <small style="font-size:12px;color:#6b7280;display:block;margin:6px 0 10px;">
+        Password must be 8+ characters and include uppercase, lowercase, number & special character.
+      </small>
+
+      <div id="doctorBox" style="display:none;">
+        <input name="specialization" id="specialization" placeholder="Specialization (Doctor)">
+      </div>
+
+      <button type="submit" id="submitBtn">Register</button>
+    </form>
