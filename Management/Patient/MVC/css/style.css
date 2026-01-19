@@ -69,3 +69,15 @@ body{background:#f4f6fb;color:#111827}
   border-radius:10px;
   margin:8px 0 14px;
 }
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 10px 25px rgba(0,0,0,.06);
+}
+th,td{padding:12px;border-bottom:1px solid #f3f4f6;text-align:left}
+th{background:#f9fafb}
+tr:hover{background:#f3f4f6}
