@@ -30,3 +30,41 @@ $displayName = $_SESSION["name"] ?? "Admin";
     <a class="active" href="/web-tech-project/Management/Admin/MVC/html/prescriptions.php">Prescriptions</a>
     <a href="/web-tech-project/Management/Auth/MVC/php/logout.php">Logout</a>
   </div>
+
+  <div class="content">
+    <h2 class="page-title">All Prescriptions</h2>
+
+    <table>
+      <tr>
+        <th>Date</th>
+        <th>Patient</th>
+        <th>Doctor</th>
+        <th>Prescription</th>
+      </tr>
+
+      <?php
+      $q = "
+        SELECT pr.created_at, pr.medicines,
+               p.name AS patient,
+               d.name AS doctor
+        FROM prescriptions pr
+        JOIN patients p ON p.id = pr.patient_id
+        JOIN doctors d ON d.id = pr.doctor_id
+        ORDER BY pr.created_at DESC
+      ";
+      $res = $conn->query($q);
+      while($r = $res->fetch_assoc()):
+      ?>
+        <tr>
+          <td><?= htmlspecialchars($r["created_at"]) ?></td>
+          <td><?= htmlspecialchars($r["patient"]) ?></td>
+          <td><?= htmlspecialchars($r["doctor"]) ?></td>
+          <td><?= nl2br(htmlspecialchars($r["medicines"])) ?></td>
+        </tr>
+      <?php endwhile; ?>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
