@@ -20,3 +20,14 @@ $q = "
   ORDER BY a.date DESC, a.time DESC
 ";
 $res = $conn->query($q);
+
+while($r = $res->fetch_assoc()):
+?>
+<tr>
+  <td><?= $r["date"] ?></td>
+  <td><?= $r["time"] ?></td>
+  <td><?= htmlspecialchars($r["name"]) ?></td>
+  <td><?= $r["status"] ?></td>
+</tr>
+<?php endwhile; ?>
+</table>
