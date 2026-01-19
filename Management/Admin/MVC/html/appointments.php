@@ -33,3 +33,27 @@ $res = $conn->query($q);
     <th>Approved</th>
     <th>Action</th>
   </tr>
+  
+  <?php while($r = $res->fetch_assoc()): ?>
+  <tr>
+    <td><?= $r['date'] ?></td>
+    <td><?= $r['time'] ?></td>
+    <td><?= htmlspecialchars($r['patient_name']) ?></td>
+    <td><?= htmlspecialchars($r['doctor_name']) ?></td>
+    <td><?= $r['status'] ?></td>
+    <td><?= $r['approved'] ? "Yes" : "No" ?></td>
+    <td>
+      <?php if($r['approved']==0): ?>
+        <a href="../php/approve_appointment.php?id=<?= $r['id'] ?>"
+           onclick="return confirm('Approve this appointment?');">
+           Approve
+        </a>
+      <?php else: ?>
+        —
+      <?php endif; ?>
+    </td>
+  </tr>
+  <?php endwhile; ?>
+</table>
+
+<?php include("_layout_bottom.php"); ?>
