@@ -47,3 +47,27 @@ if ($u["role"] === "patient") {
   header("Location: /web-tech-project/Management/Patient/MVC/html/dashboard.php");
   exit;
 }
+
+
+if ($u["role"] === "doctor") {
+  $d = $conn->query("SELECT id,name,approved,status FROM doctors WHERE user_id=".$_SESSION["user_id"]." LIMIT 1")->fetch_assoc();
+  if (!$d) {
+    header("Location: ../html/login.php?err=Doctor+profile+missing");
+    exit;
+  }
+  if ((int)$d["approved"] !== 1) {
+    header("Location: ../html/login.php?err=Doctor+not+approved+yet");
+    exit;
+  }
+  if ($d["status"] !== "active") {
+    header("Location: ../html/login.php?err=Doctor+inactive");
+    exit;
+  }
+  $_SESSION["doctor_id"] = (int)$d["id"];
+  $_SESSION["name"] = $d["name"];
+  header("Location: /web-tech-project/Management/Doctor/MVC/html/dashboard.php");
+  exit;
+}
+
+header("Location: ../html/login.php?err=Unknown+role");
+exit;
